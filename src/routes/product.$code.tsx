@@ -17,23 +17,27 @@ export const Route = createFileRoute("/product/$code")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.name} — NEO·STREET` },
+          { title: `${loaderData.name} — Merchango` },
           { name: "description", content: `Customize the ${loaderData.name}. ${loaderData.desc}` },
-          { property: "og:title", content: `${loaderData.name} — NEO·STREET` },
+          { property: "og:title", content: `${loaderData.name} — Merchango` },
           { property: "og:description", content: `Customize the ${loaderData.name}.` },
           ...(loaderData.colors[0]?.image
             ? [{ property: "og:image", content: loaderData.colors[0].image }]
             : []),
         ]
-      : [{ title: "Product — NEO·STREET" }],
+      : [{ title: "Product — Merchango" }],
   }),
   component: ProductPage,
-  notFoundComponent: () => (
+  notFoundComponent: NotFoundInline,
+});
+
+function NotFoundInline() {
+  return (
     <div className="grid min-h-[60vh] place-items-center">
       <p className="font-display text-2xl uppercase">Product not found</p>
     </div>
-  ),
-});
+  );
+}
 
 function ProductPage() {
   const p = Route.useLoaderData();
@@ -60,7 +64,7 @@ function ProductPage() {
   }, [p.price, logoPos, customText]);
   const totalPrice = unitPrice * qty;
 
-  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · Logo` : ""}`;
+  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}`;
 
   const onAdd = () => {
     add({

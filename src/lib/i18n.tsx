@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 const STRINGS = {
   en: {
@@ -24,6 +24,22 @@ const STRINGS = {
     back_to_shop: "Back to shop", zoom_in: "Zoom in", zoom_out: "Zoom out",
     rotate_l: "Rotate left", rotate_r: "Rotate right", fabric_detail: "Fabric detail",
     lang_toggle: "Español",
+    featured: "Featured", view_all: "View all", drop_tag: "Drop 01",
+    load_more: "Load more", not_found: "Product not found",
+    dec_qty: "Decrease quantity", inc_qty: "Increase quantity",
+    logo_label: "Logo",
+    // Auth
+    sign_in: "Sign in", sign_up: "Sign up", sign_out: "Sign out",
+    account: "Account", email: "Email", password: "Password",
+    auth_signin_title: "Welcome back", auth_signup_title: "Create account",
+    auth_signin_sub: "Sign in to continue designing.",
+    auth_signup_sub: "Join Merchango to save your designs.",
+    have_account: "Already have an account?", no_account: "Don't have an account?",
+    auth_submit_signin: "Sign in", auth_submit_signup: "Create account",
+    auth_success_signin: "Signed in", auth_success_signup: "Account created",
+    auth_success_signout: "Signed out",
+    auth_err_generic: "Something went wrong. Try again.",
+    my_account: "My account",
   },
   es: {
     nav_shop: "Tienda", nav_collections: "Colecciones", nav_about: "Nosotros", nav_drop: "Drop",
@@ -48,6 +64,22 @@ const STRINGS = {
     back_to_shop: "Volver a la tienda", zoom_in: "Acercar", zoom_out: "Alejar",
     rotate_l: "Rotar izquierda", rotate_r: "Rotar derecha", fabric_detail: "Detalle tela",
     lang_toggle: "English",
+    featured: "Destacados", view_all: "Ver todo", drop_tag: "Drop 01",
+    load_more: "Cargar más", not_found: "Producto no encontrado",
+    dec_qty: "Disminuir cantidad", inc_qty: "Aumentar cantidad",
+    logo_label: "Logo",
+    // Auth
+    sign_in: "Iniciar sesión", sign_up: "Registrarse", sign_out: "Cerrar sesión",
+    account: "Cuenta", email: "Correo", password: "Contraseña",
+    auth_signin_title: "Bienvenido de vuelta", auth_signup_title: "Crea tu cuenta",
+    auth_signin_sub: "Inicia sesión para seguir diseñando.",
+    auth_signup_sub: "Únete a Merchango para guardar tus diseños.",
+    have_account: "¿Ya tienes cuenta?", no_account: "¿No tienes cuenta?",
+    auth_submit_signin: "Iniciar sesión", auth_submit_signup: "Crear cuenta",
+    auth_success_signin: "Sesión iniciada", auth_success_signup: "Cuenta creada",
+    auth_success_signout: "Sesión cerrada",
+    auth_err_generic: "Algo salió mal. Inténtalo de nuevo.",
+    my_account: "Mi cuenta",
   },
 } as const;
 
@@ -60,7 +92,17 @@ const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: (k: Key) 
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("merchango.lang");
+      if (saved === "en" || saved === "es") setLang(saved);
+    } catch {}
+  }, []);
+  const set = (l: Lang) => {
+    setLang(l);
+    try { localStorage.setItem("merchango.lang", l); } catch {}
+  };
   const t = (k: Key) => STRINGS[lang][k];
-  return <Ctx.Provider value={{ lang, setLang, t }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ lang, setLang: set, t }}>{children}</Ctx.Provider>;
 }
 export const useI18n = () => useContext(Ctx);

@@ -8,9 +8,9 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
-      { title: "Shop the Drop — NEO·STREET" },
+      { title: "Shop the Drop — Merchango" },
       { name: "description", content: "150 streetwear pieces. Fully customizable. Yours to design." },
-      { property: "og:title", content: "Shop the Drop — NEO·STREET" },
+      { property: "og:title", content: "Shop the Drop — Merchango" },
       { property: "og:description", content: "150 streetwear pieces. Fully customizable." },
     ],
   }),
@@ -102,7 +102,7 @@ function Shop() {
                 onClick={() => setPage((n) => n + 1)}
                 className="rounded-full border border-foreground px-6 py-3 font-display text-xs uppercase tracking-widest transition hover:bg-foreground hover:text-background"
               >
-                Load more ({filtered.length - paged.length})
+                {t("load_more")} ({filtered.length - paged.length})
               </button>
             </div>
           )}

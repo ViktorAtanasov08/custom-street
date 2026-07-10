@@ -51,7 +51,7 @@ export function CartDrawer() {
                       </p>
                     )}
                     {i.logoPlacement && (
-                      <p className="text-xs text-muted-foreground">Logo: {i.logoPlacement}</p>
+                      <p className="text-xs text-muted-foreground">{t("logo_label")}: {i.logoPlacement}</p>
                     )}
                     <p className="mt-auto text-sm font-semibold">
                       ${(i.unitPrice * i.qty).toFixed(2)}
