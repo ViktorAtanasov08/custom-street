@@ -1,12 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingBag, User, Globe } from "lucide-react";
+import { ShoppingBag, User as UserIcon, Globe, LogOut } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart-store";
+import { useAuth } from "@/lib/auth-context";
 
 export function TopNav() {
   const { t, lang, setLang } = useI18n();
   const { count, setOpen } = useCart();
+  const { user, signOut } = useAuth();
+  const [menu, setMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menu) return;
+    const onClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false);
+    };
+    window.addEventListener("mousedown", onClick);
+    return () => window.removeEventListener("mousedown", onClick);
+  }, [menu]);
 
   const links: Array<{ to: string; key: "nav_shop" | "nav_collections" | "nav_about" | "nav_drop" }> = [
     { to: "/shop", key: "nav_shop" },
@@ -15,11 +30,17 @@ export function TopNav() {
     { to: "/shop", key: "nav_drop" },
   ];
 
+  const doSignOut = async () => {
+    await signOut();
+    setMenu(false);
+    toast.success(t("auth_success_signout"));
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="font-display text-xl tracking-tight sm:text-2xl">
-          NEO<span className="text-holo">·</span>STREET
+          MERCH<span className="text-holo">·</span>ANGO
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -60,9 +81,46 @@ export function TopNav() {
               </motion.span>
             </AnimatePresence>
           </button>
-          <button aria-label="Profile" className="rounded-full p-2 transition hover:bg-muted">
-            <User className="h-5 w-5" />
-          </button>
+
+          {user ? (
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={() => setMenu((v) => !v)}
+                aria-label={t("my_account")}
+                className="flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1.5 text-xs font-medium transition hover:border-foreground"
+              >
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-foreground text-background">
+                  {user.email?.[0]?.toUpperCase() ?? "U"}
+                </span>
+                <span className="hidden max-w-[120px] truncate sm:inline">{user.email}</span>
+              </button>
+              {menu && (
+                <div className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-xl border border-border bg-background shadow-lg">
+                  <div className="border-b border-border px-3 py-2 text-xs text-muted-foreground">
+                    {t("account")}
+                    <p className="truncate text-foreground">{user.email}</p>
+                  </div>
+                  <button
+                    onClick={doSignOut}
+                    className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm transition hover:bg-muted"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {t("sign_out")}
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              aria-label={t("sign_in")}
+              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition hover:border-foreground"
+            >
+              <UserIcon className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">{t("sign_in")}</span>
+            </Link>
+          )}
+
           <button
             onClick={() => setOpen(true)}
             aria-label={`Cart (${count} items)`}

@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "../lib/i18n";
 import { CartProvider } from "../lib/cart-store";
+import { AuthProvider } from "../lib/auth-context";
 import { TopNav } from "../components/nav/TopNav";
 import { CartDrawer } from "../components/cart/CartDrawer";
 
@@ -23,7 +24,7 @@ function NotFoundComponent() {
         <h1 className="font-display text-7xl uppercase text-foreground">404</h1>
         <h2 className="mt-4 font-display text-xl uppercase text-foreground">Off the grid</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          This page doesn't exist. Head back to the drop.
+          This page doesn't exist. Head back to Merchango.
         </p>
         <div className="mt-6">
           <a
@@ -73,10 +74,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NEO·STREET — Wear the future" },
+      { title: "Merchango — Wear the future" },
       { name: "description", content: "150 customizable streetwear pieces. Built for the streets, designed by you." },
-      { name: "author", content: "NEO·STREET" },
-      { property: "og:title", content: "NEO·STREET — Wear the future" },
+      { name: "author", content: "Merchango" },
+      { property: "og:title", content: "Merchango — Wear the future" },
       { property: "og:description", content: "150 customizable streetwear pieces." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -114,16 +115,18 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        <CartProvider>
-          <div className="min-h-screen">
-            <TopNav />
-            <main>
-              <Outlet />
-            </main>
-            <CartDrawer />
-            <Toaster position="top-center" richColors />
-          </div>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <div className="min-h-screen">
+              <TopNav />
+              <main>
+                <Outlet />
+              </main>
+              <CartDrawer />
+              <Toaster position="top-center" richColors />
+            </div>
+          </CartProvider>
+        </AuthProvider>
       </I18nProvider>
     </QueryClientProvider>
   );

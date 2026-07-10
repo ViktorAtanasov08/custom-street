@@ -124,7 +124,7 @@ export function Viewer(props: {
               >
                 {props.logoPos && (
                   <div className="holo-gradient rounded-md px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg">
-                    NEO
+                    MRC
                   </div>
                 )}
                 {props.customText && (

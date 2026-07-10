@@ -88,7 +88,7 @@ export function ControlPanel(props: {
           <button
             onClick={() => props.setQty(Math.max(1, props.qty - 1))}
             disabled={props.qty <= 1}
-            aria-label="Decrease quantity"
+            aria-label={t("dec_qty")}
             className="grid h-11 w-11 place-items-center rounded-l-full transition hover:bg-muted disabled:opacity-40"
           >
             <Minus className="h-4 w-4" />
@@ -96,7 +96,7 @@ export function ControlPanel(props: {
           <span className="w-12 text-center font-semibold">{props.qty}</span>
           <button
             onClick={() => props.setQty(props.qty + 1)}
-            aria-label="Increase quantity"
+            aria-label={t("inc_qty")}
             className="grid h-11 w-11 place-items-center rounded-r-full transition hover:bg-muted"
           >
             <Plus className="h-4 w-4" />

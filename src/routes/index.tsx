@@ -8,9 +8,9 @@ import { ProductCard } from "@/components/catalog/ProductCard";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NEO·STREET — Wear the future" },
+      { title: "Merchango — Wear the future" },
       { name: "description", content: "150 customizable streetwear pieces. Built for the streets, designed by you." },
-      { property: "og:title", content: "NEO·STREET — Wear the future" },
+      { property: "og:title", content: "Merchango — Wear the future" },
       { property: "og:description", content: "150 customizable streetwear pieces. Built for the streets, designed by you." },
     ],
   }),
@@ -85,7 +85,7 @@ function Index() {
               {featured[0]?.name}
             </div>
             <div className="absolute right-4 top-4 rounded-full holo-gradient px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg">
-              Drop 01
+              {t("drop_tag")}
             </div>
           </motion.div>
         </div>
@@ -96,13 +96,13 @@ function Index() {
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("nav_collections")}</p>
-            <h2 className="font-display text-3xl uppercase tracking-tight sm:text-5xl">Featured</h2>
+            <h2 className="font-display text-3xl uppercase tracking-tight sm:text-5xl">{t("featured")}</h2>
           </div>
           <Link
             to="/shop"
             className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest transition hover:gap-2"
           >
-            View all <ArrowRight className="h-3.5 w-3.5" />
+            {t("view_all")} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
