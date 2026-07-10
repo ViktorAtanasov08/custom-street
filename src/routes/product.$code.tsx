@@ -42,7 +42,7 @@ function ProductPage() {
   const { t } = useI18n();
 
   const [size, setSize] = useState(p.sizes[Math.min(2, p.sizes.length - 1)]);
-  const [color, setColor] = useState(p.colors.find((c) => c.image) ?? p.colors[0]);
+  const [color, setColor] = useState(p.colors.find((c: typeof p.colors[number]) => c.image) ?? p.colors[0]);
   const [qty, setQty] = useState(1);
   const [view, setView] = useState<View>("front");
   const [logoPos, setLogoPos] = useState<string | null>(null);
