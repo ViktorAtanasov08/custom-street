@@ -23,11 +23,10 @@ export function TopNav() {
     return () => window.removeEventListener("mousedown", onClick);
   }, [menu]);
 
-  const links: Array<{ to: string; key: "nav_shop" | "nav_collections" | "nav_about" | "nav_drop" }> = [
+  const links: Array<{ to: string; key: "nav_shop" | "nav_about" | "nav_drop" }> = [
     { to: "/shop", key: "nav_shop" },
-    { to: "/shop", key: "nav_collections" },
-    { to: "/", key: "nav_about" },
-    { to: "/shop", key: "nav_drop" },
+    { to: "/drop", key: "nav_drop" },
+    { to: "/about", key: "nav_about" },
   ];
 
   const doSignOut = async () => {
