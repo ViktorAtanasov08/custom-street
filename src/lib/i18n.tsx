@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 
 const STRINGS = {
   en: {
-    nav_shop: "Shop", nav_collections: "Collections", nav_about: "About", nav_drop: "Drop",
+    nav_shop: "Catalog", nav_collections: "Collections", nav_about: "About", nav_drop: "Drop",
     hero_kicker: "Season 01 / Drop", hero_title: "Wear the future.",
     hero_sub: "150 pieces. Fully customizable. Built for the streets.",
     hero_cta: "Enter the shop", hero_cta2: "Watch the drop",
@@ -42,7 +42,7 @@ const STRINGS = {
     my_account: "My account",
   },
   es: {
-    nav_shop: "Tienda", nav_collections: "Colecciones", nav_about: "Nosotros", nav_drop: "Drop",
+    nav_shop: "Catálogo", nav_collections: "Colecciones", nav_about: "Nosotros", nav_drop: "Drop",
     hero_kicker: "Temporada 01 / Drop", hero_title: "Viste el futuro.",
     hero_sub: "150 piezas. Totalmente personalizables. Hechas para la calle.",
     hero_cta: "Entrar a la tienda", hero_cta2: "Ver el drop",
