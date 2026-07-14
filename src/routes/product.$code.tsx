@@ -50,18 +50,26 @@ function ProductPage() {
   const [qty, setQty] = useState(1);
   const [view, setView] = useState<View>("front");
   const [logoPos, setLogoPos] = useState<string | null>(null);
+  const [logoImage, setLogoImage] = useState<string | null>(null);
+  const [logoSize, setLogoSize] = useState(20);
   const [customText, setCustomText] = useState("");
   const [textFont, setTextFont] = useState("brutal");
   const [textColor, setTextColor] = useState("#0a0a0a");
   const [overlayPos, setOverlayPos] = useState({ x: 0, y: -10 });
   const [editMode, setEditMode] = useState(false);
 
+  const imageSurcharge = useMemo(
+    () => (logoImage ? Math.round(6 + logoSize * 0.5) : 0),
+    [logoImage, logoSize],
+  );
+
   const unitPrice = useMemo(() => {
     let x = p.price;
     if (logoPos) x += 8;
     if (customText) x += 12;
+    x += imageSurcharge;
     return x;
-  }, [p.price, logoPos, customText]);
+  }, [p.price, logoPos, customText, imageSurcharge]);
   const totalPrice = unitPrice * qty;
 
   const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}`;
