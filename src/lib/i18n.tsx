@@ -43,6 +43,18 @@ const STRINGS = {
     auth_success_signout: "Signed out",
     auth_err_generic: "Something went wrong. Try again.",
     my_account: "My account",
+    // Checkout
+    checkout_title: "Checkout", checkout_sub: "Just a few details and your pieces are on the way.",
+    contact_info: "Contact", shipping_address: "Shipping address",
+    full_name: "Full name", address_line: "Address", city: "City", postal_code: "Postal code", country: "Country", phone: "Phone",
+    payment: "Payment", card_number: "Card number", card_expiry: "MM / YY", card_cvc: "CVC",
+    order_summary: "Order summary", subtotal: "Subtotal", shipping: "Shipping", tax: "Tax (est.)", total: "Total",
+    free: "Free", place_order: "Place order", processing: "Processing…",
+    thanks_title: "Thank you for your order",
+    thanks_sub: "Your custom pieces are entering production. We'll email tracking within 48h.",
+    order_number: "Order", continue_shopping: "Continue shopping", back_home: "Back home",
+    empty_checkout: "Your cart is empty. Add a piece before checking out.",
+    demo_note: "Demo checkout — no card is charged.",
   },
   es: {
     nav_shop: "Catálogo", nav_collections: "Colecciones", nav_about: "Nosotros", nav_drop: "Drop",
