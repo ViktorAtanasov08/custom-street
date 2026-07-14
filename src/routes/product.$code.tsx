@@ -72,7 +72,7 @@ function ProductPage() {
   }, [p.price, logoPos, customText, imageSurcharge]);
   const totalPrice = unitPrice * qty;
 
-  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}`;
+  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}${logoImage ? ` · ${t("custom_image")} (${logoSize}%)` : ""}`;
 
   const onAdd = () => {
     add({
