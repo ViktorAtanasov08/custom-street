@@ -98,6 +98,18 @@ const STRINGS = {
     auth_success_signout: "Sesión cerrada",
     auth_err_generic: "Algo salió mal. Inténtalo de nuevo.",
     my_account: "Mi cuenta",
+    // Checkout
+    checkout_title: "Pagar", checkout_sub: "Unos datos y tus piezas van en camino.",
+    contact_info: "Contacto", shipping_address: "Dirección de envío",
+    full_name: "Nombre completo", address_line: "Dirección", city: "Ciudad", postal_code: "Código postal", country: "País", phone: "Teléfono",
+    payment: "Pago", card_number: "Número de tarjeta", card_expiry: "MM / AA", card_cvc: "CVC",
+    order_summary: "Resumen del pedido", subtotal: "Subtotal", shipping: "Envío", tax: "Impuestos (est.)", total: "Total",
+    free: "Gratis", place_order: "Realizar pedido", processing: "Procesando…",
+    thanks_title: "Gracias por tu compra",
+    thanks_sub: "Tus piezas personalizadas entran en producción. Te enviaremos el seguimiento en 48h.",
+    order_number: "Pedido", continue_shopping: "Seguir comprando", back_home: "Volver al inicio",
+    empty_checkout: "Tu carrito está vacío. Añade una pieza antes de pagar.",
+    demo_note: "Pago de demostración — no se cobra ninguna tarjeta.",
   },
 } as const;
 
