@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as DropRouteImport } from './routes/drop'
 import { Route as CheckoutRouteImport } from './routes/checkout'
@@ -17,6 +18,11 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductCodeRouteImport } from './routes/product.$code'
 
+const ThanksRoute = ThanksRouteImport.update({
+  id: '/thanks',
+  path: '/thanks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
+  '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
+  '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
+  '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/drop'
     | '/shop'
+    | '/thanks'
     | '/product/$code'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/drop'
     | '/shop'
+    | '/thanks'
     | '/product/$code'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/drop'
     | '/shop'
+    | '/thanks'
     | '/product/$code'
   fileRoutesById: FileRoutesById
 }
@@ -118,11 +130,19 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   DropRoute: typeof DropRoute
   ShopRoute: typeof ShopRoute
+  ThanksRoute: typeof ThanksRoute
   ProductCodeRoute: typeof ProductCodeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thanks': {
+      id: '/thanks'
+      path: '/thanks'
+      fullPath: '/thanks'
+      preLoaderRoute: typeof ThanksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   DropRoute: DropRoute,
   ShopRoute: ShopRoute,
+  ThanksRoute: ThanksRoute,
   ProductCodeRoute: ProductCodeRoute,
 }
 export const routeTree = rootRouteImport
