@@ -130,7 +130,16 @@ export function Viewer(props: {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                {props.logoPos && (
+                {props.logoImage && (
+                  <img
+                    src={props.logoImage}
+                    alt=""
+                    draggable={false}
+                    style={{ width: `${props.logoSize * 2.4}%`, height: "auto" }}
+                    className="max-w-none select-none object-contain drop-shadow-md"
+                  />
+                )}
+                {props.logoPos && !props.logoImage && (
                   <div className="holo-gradient rounded-md px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg">
                     MRC
                   </div>
