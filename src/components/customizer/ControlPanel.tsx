@@ -42,11 +42,6 @@ export function ControlPanel(props: {
     reader.readAsDataURL(f);
   };
 
-  const logoPositions = [
-    { key: "center", labelKey: "logo_center" as const, disabled: false },
-    { key: "left", labelKey: "logo_left" as const, disabled: false },
-    { key: "back", labelKey: "logo_back" as const, disabled: true },
-  ];
 
   const textColors = ["#0a0a0a", "#ffffff", "#8b00ff", "#00a3ff", "#ec4899", "#facc15"];
   const fonts = [
