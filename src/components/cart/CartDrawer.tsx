@@ -2,6 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { useCart } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { X } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 
 export function CartDrawer() {
   const { items, remove, total, open, setOpen, count } = useCart();
