@@ -183,7 +183,7 @@ export function Viewer(props: {
         </div>
 
         {/* Edit mode toggle (only on front) */}
-        {props.view === "front" && (props.logoPos || props.customText) && (
+        {props.view === "front" && (props.logoPos || props.customText || props.logoImage) && (
           <button
             onClick={() => props.setEditMode(!props.editMode)}
             className={`absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium backdrop-blur transition ${
