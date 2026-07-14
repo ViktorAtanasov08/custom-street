@@ -1,4 +1,6 @@
-import { Minus, Plus } from "lucide-react";
+import { useRef } from "react";
+import { Minus, Plus, Upload, X } from "lucide-react";
+import { toast } from "sonner";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { Product, ColorVariant } from "@/data/products";
 import { useI18n } from "@/lib/i18n";
@@ -9,6 +11,8 @@ export function ControlPanel(props: {
   color: ColorVariant; setColor: (c: ColorVariant) => void;
   qty: number; setQty: (n: number) => void;
   logoPos: string | null; setLogoPos: (v: string | null) => void;
+  logoImage: string | null; setLogoImage: (v: string | null) => void;
+  logoSize: number; setLogoSize: (n: number) => void;
   customText: string; setCustomText: (v: string) => void;
   textFont: string; setTextFont: (v: string) => void;
   textColor: string; setTextColor: (v: string) => void;
