@@ -127,6 +127,7 @@ export function Viewer(props: {
                 style={{
                   left: `calc(50% + ${props.overlayPos.x}%)`,
                   top: `calc(50% + ${props.overlayPos.y}%)`,
+                  width: props.logoImage ? `${props.logoSize}%` : undefined,
                   transform: "translate(-50%, -50%)",
                 }}
               >
@@ -135,8 +136,7 @@ export function Viewer(props: {
                     src={props.logoImage}
                     alt=""
                     draggable={false}
-                    style={{ width: `${props.logoSize * 2.4}%`, height: "auto" }}
-                    className="max-w-none select-none object-contain drop-shadow-md"
+                    className="pointer-events-none w-full select-none object-contain drop-shadow-md"
                   />
                 )}
                 {props.logoPos && !props.logoImage && (
