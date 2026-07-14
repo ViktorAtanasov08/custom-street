@@ -191,24 +191,6 @@ export function ControlPanel(props: {
             <p className="mt-2 text-[11px] text-muted-foreground">{t("image_hint")}</p>
           </div>
 
-          {logoPositions.map((pos) => (
-            <button
-              key={pos.key}
-              disabled={pos.disabled}
-              onClick={() => props.setLogoPos(props.logoPos === pos.key ? null : pos.key)}
-              aria-pressed={props.logoPos === pos.key}
-              className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium transition disabled:opacity-40 ${
-                props.logoPos === pos.key
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border hover:border-foreground"
-              }`}
-            >
-              <span>{t(pos.labelKey)}</span>
-              <span className="text-xs uppercase tracking-widest opacity-70">
-                {pos.disabled ? t("front_only") : t("logo_surcharge")}
-              </span>
-            </button>
-          ))}
         </TabsContent>
 
         <TabsContent value="text" className="mt-4 space-y-4">
