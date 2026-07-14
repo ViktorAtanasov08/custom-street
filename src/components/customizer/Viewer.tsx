@@ -68,7 +68,7 @@ export function Viewer(props: {
     const dx = ((e.clientX - dragRef.current.x) / rect.width) * 100;
     const dy = ((e.clientY - dragRef.current.y) / rect.height) * 100;
     dragRef.current = { x: e.clientX, y: e.clientY };
-    props.setOverlayPos({ x: clamp(props.overlayPos.x + dx), y: clamp(props.overlayPos.y + dy) });
+    props.setOverlayPos({ x: clampX(props.overlayPos.x + dx), y: clampY(props.overlayPos.y + dy) });
   };
   const onPointerUp = () => { dragRef.current = null; };
 
