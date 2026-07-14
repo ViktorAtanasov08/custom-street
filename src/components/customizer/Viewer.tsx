@@ -12,6 +12,8 @@ export function Viewer(props: {
   view: View;
   setView: (v: View) => void;
   logoPos: string | null;
+  logoImage: string | null;
+  logoSize: number;
   customText: string;
   textColor: string;
   textFont: string;
@@ -32,22 +34,28 @@ export function Viewer(props: {
     front: "view_front", back: "view_back", left: "view_left", right: "view_right",
   };
 
-  // Clamp within a safe zone: ~30% width around center
-  const clamp = (v: number) => Math.max(-40, Math.min(40, v));
+  // Printable zone: left 30%, top 22%, width 40%, height 50% → center at (50%, 47%)
+  // Overlay position is expressed relative to canvas center (percent).
+  // Approximate half-size of overlay in each axis to keep it fully inside the zone.
+  const halfW = props.logoImage ? props.logoSize / 2 : 6;
+  const halfH = props.logoImage ? props.logoSize / 2 : 6;
+  const clampX = (v: number) => Math.max(-20 + halfW, Math.min(20 - halfW, v));
+  const clampY = (v: number) => Math.max(-25 + halfH, Math.min(19 - halfH, v));
 
   useEffect(() => {
     if (!props.editMode) return;
     const onKey = (e: KeyboardEvent) => {
       if (props.view !== "front") return;
       const step = e.shiftKey ? 5 : 1;
-      if (e.key === "ArrowLeft") props.setOverlayPos({ x: clamp(props.overlayPos.x - step), y: props.overlayPos.y });
-      else if (e.key === "ArrowRight") props.setOverlayPos({ x: clamp(props.overlayPos.x + step), y: props.overlayPos.y });
-      else if (e.key === "ArrowUp") props.setOverlayPos({ x: props.overlayPos.x, y: clamp(props.overlayPos.y - step) });
-      else if (e.key === "ArrowDown") props.setOverlayPos({ x: props.overlayPos.x, y: clamp(props.overlayPos.y + step) });
+      if (e.key === "ArrowLeft") props.setOverlayPos({ x: clampX(props.overlayPos.x - step), y: props.overlayPos.y });
+      else if (e.key === "ArrowRight") props.setOverlayPos({ x: clampX(props.overlayPos.x + step), y: props.overlayPos.y });
+      else if (e.key === "ArrowUp") props.setOverlayPos({ x: props.overlayPos.x, y: clampY(props.overlayPos.y - step) });
+      else if (e.key === "ArrowDown") props.setOverlayPos({ x: props.overlayPos.x, y: clampY(props.overlayPos.y + step) });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [props]);
+  });
+
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (!props.editMode || props.view !== "front") return;
@@ -60,7 +68,7 @@ export function Viewer(props: {
     const dx = ((e.clientX - dragRef.current.x) / rect.width) * 100;
     const dy = ((e.clientY - dragRef.current.y) / rect.height) * 100;
     dragRef.current = { x: e.clientX, y: e.clientY };
-    props.setOverlayPos({ x: clamp(props.overlayPos.x + dx), y: clamp(props.overlayPos.y + dy) });
+    props.setOverlayPos({ x: clampX(props.overlayPos.x + dx), y: clampY(props.overlayPos.y + dy) });
   };
   const onPointerUp = () => { dragRef.current = null; };
 
@@ -68,7 +76,7 @@ export function Viewer(props: {
     props.textFont === "brutal" ? "font-display" :
     props.textFont === "mono" ? "font-mono font-bold" : "font-sans font-black italic";
 
-  const hasOverlay = props.view === "front" && (props.customText || props.logoPos);
+  const hasOverlay = props.view === "front" && (props.customText || props.logoPos || props.logoImage);
 
   return (
     <div className="relative flex h-full w-full flex-col gap-4">
@@ -119,10 +127,19 @@ export function Viewer(props: {
                 style={{
                   left: `calc(50% + ${props.overlayPos.x}%)`,
                   top: `calc(50% + ${props.overlayPos.y}%)`,
+                  width: props.logoImage ? `${props.logoSize}%` : undefined,
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                {props.logoPos && (
+                {props.logoImage && (
+                  <img
+                    src={props.logoImage}
+                    alt=""
+                    draggable={false}
+                    className="pointer-events-none w-full select-none object-contain drop-shadow-md"
+                  />
+                )}
+                {props.logoPos && !props.logoImage && (
                   <div className="holo-gradient rounded-md px-3 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg">
                     MRC
                   </div>
@@ -166,7 +183,7 @@ export function Viewer(props: {
         </div>
 
         {/* Edit mode toggle (only on front) */}
-        {props.view === "front" && (props.logoPos || props.customText) && (
+        {props.view === "front" && (props.logoPos || props.customText || props.logoImage) && (
           <button
             onClick={() => props.setEditMode(!props.editMode)}
             className={`absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium backdrop-blur transition ${

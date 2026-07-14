@@ -1,4 +1,6 @@
-import { Minus, Plus } from "lucide-react";
+import { useRef } from "react";
+import { Minus, Plus, Upload, X } from "lucide-react";
+import { toast } from "sonner";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { Product, ColorVariant } from "@/data/products";
 import { useI18n } from "@/lib/i18n";
@@ -9,6 +11,8 @@ export function ControlPanel(props: {
   color: ColorVariant; setColor: (c: ColorVariant) => void;
   qty: number; setQty: (n: number) => void;
   logoPos: string | null; setLogoPos: (v: string | null) => void;
+  logoImage: string | null; setLogoImage: (v: string | null) => void;
+  logoSize: number; setLogoSize: (n: number) => void;
   customText: string; setCustomText: (v: string) => void;
   textFont: string; setTextFont: (v: string) => void;
   textColor: string; setTextColor: (v: string) => void;
@@ -16,6 +20,27 @@ export function ControlPanel(props: {
 }) {
   const { t } = useI18n();
   const p = props.product;
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    if (!/^image\/(png|jpe?g|svg\+xml|webp)$/.test(f.type)) {
+      toast.error("PNG, JPG, WEBP or SVG only");
+      return;
+    }
+    if (f.size > 4 * 1024 * 1024) {
+      toast.error("Max 4MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      props.setLogoImage(String(reader.result));
+      props.setLogoPos(null);
+    };
+    reader.readAsDataURL(f);
+  };
 
   const logoPositions = [
     { key: "center", labelKey: "logo_center" as const, disabled: false },
@@ -110,7 +135,62 @@ export function ControlPanel(props: {
           <TabsTrigger value="text" className="rounded-full text-xs uppercase tracking-widest">{t("tab_text")}</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="logo" className="mt-4 space-y-2">
+        <TabsContent value="logo" className="mt-4 space-y-3">
+          <div className="rounded-lg border border-dashed border-border p-3">
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/svg+xml"
+              className="hidden"
+              onChange={onPickFile}
+            />
+            {!props.logoImage ? (
+              <button
+                onClick={() => fileRef.current?.click()}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-foreground px-4 py-3 text-sm font-semibold uppercase tracking-widest text-background transition hover:opacity-90"
+              >
+                <Upload className="h-4 w-4" /> {t("upload_logo")}
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <img src={props.logoImage} alt="" className="h-14 w-14 rounded-md border border-border object-contain bg-white" />
+                  <div className="flex-1 space-y-1.5">
+                    <button
+                      onClick={() => fileRef.current?.click()}
+                      className="w-full rounded-md border border-border px-3 py-1.5 text-xs uppercase tracking-widest transition hover:border-foreground"
+                    >
+                      {t("replace_logo")}
+                    </button>
+                    <button
+                      onClick={() => props.setLogoImage(null)}
+                      className="flex w-full items-center justify-center gap-1 rounded-md border border-border px-3 py-1.5 text-xs uppercase tracking-widest text-muted-foreground transition hover:border-destructive hover:text-destructive"
+                    >
+                      <X className="h-3 w-3" /> {t("remove_logo")}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-widest">
+                    <span>{t("logo_size")}</span>
+                    <span className="font-semibold">{props.logoSize}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={10}
+                    max={38}
+                    step={1}
+                    value={props.logoSize}
+                    onChange={(e) => props.setLogoSize(Number(e.target.value))}
+                    className="w-full accent-foreground"
+                  />
+                  <p className="mt-1 text-xs text-muted-foreground">{t("image_surcharge")}</p>
+                </div>
+              </div>
+            )}
+            <p className="mt-2 text-[11px] text-muted-foreground">{t("image_hint")}</p>
+          </div>
+
           {logoPositions.map((pos) => (
             <button
               key={pos.key}
