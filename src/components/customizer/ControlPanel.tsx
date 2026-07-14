@@ -20,6 +20,27 @@ export function ControlPanel(props: {
 }) {
   const { t } = useI18n();
   const p = props.product;
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    if (!/^image\/(png|jpe?g|svg\+xml|webp)$/.test(f.type)) {
+      toast.error("PNG, JPG, WEBP or SVG only");
+      return;
+    }
+    if (f.size > 4 * 1024 * 1024) {
+      toast.error("Max 4MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      props.setLogoImage(String(reader.result));
+      props.setLogoPos(null);
+    };
+    reader.readAsDataURL(f);
+  };
 
   const logoPositions = [
     { key: "center", labelKey: "logo_center" as const, disabled: false },
