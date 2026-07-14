@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as DropRouteImport } from './routes/drop'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ const ShopRoute = ShopRouteImport.update({
 const DropRoute = DropRouteImport.update({
   id: '/drop',
   path: '/drop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
   '/product/$code': typeof ProductCodeRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
   '/product/$code': typeof ProductCodeRoute
@@ -68,20 +76,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/checkout': typeof CheckoutRoute
   '/drop': typeof DropRoute
   '/shop': typeof ShopRoute
   '/product/$code': typeof ProductCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/auth' | '/drop' | '/shop' | '/product/$code'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/checkout'
+    | '/drop'
+    | '/shop'
+    | '/product/$code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/auth' | '/drop' | '/shop' | '/product/$code'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/checkout'
+    | '/drop'
+    | '/shop'
+    | '/product/$code'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/auth'
+    | '/checkout'
     | '/drop'
     | '/shop'
     | '/product/$code'
@@ -91,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  CheckoutRoute: typeof CheckoutRoute
   DropRoute: typeof DropRoute
   ShopRoute: typeof ShopRoute
   ProductCodeRoute: typeof ProductCodeRoute
@@ -110,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/drop'
       fullPath: '/drop'
       preLoaderRoute: typeof DropRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -147,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  CheckoutRoute: CheckoutRoute,
   DropRoute: DropRoute,
   ShopRoute: ShopRoute,
   ProductCodeRoute: ProductCodeRoute,
