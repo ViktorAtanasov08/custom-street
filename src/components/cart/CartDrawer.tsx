@@ -71,7 +71,10 @@ export function CartDrawer() {
               <span>{t("cart_total")}</span>
               <span>${total.toFixed(2)}</span>
             </div>
-            <button className="holo-gradient w-full rounded-full py-3 font-display text-sm uppercase tracking-wider text-white shadow-lg transition active:scale-95">
+            <button
+              onClick={() => { setOpen(false); navigate({ to: "/checkout" }); }}
+              className="holo-gradient w-full rounded-full py-3 font-display text-sm uppercase tracking-wider text-white shadow-lg transition active:scale-95"
+            >
               {t("cart_checkout")}
             </button>
           </div>
