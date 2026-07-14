@@ -98,7 +98,8 @@ function ProductPage() {
         <div className="h-[70vh] min-h-[420px] md:sticky md:top-20 md:h-[calc(100vh-8rem)]">
           <Viewer
             color={color} view={view} setView={setView}
-            logoPos={logoPos} customText={customText}
+            logoPos={logoPos} logoImage={logoImage} logoSize={logoSize}
+            customText={customText}
             textColor={textColor} textFont={textFont}
             overlayPos={overlayPos} setOverlayPos={setOverlayPos}
             editMode={editMode} setEditMode={setEditMode}
@@ -111,6 +112,8 @@ function ProductPage() {
           color={color} setColor={setColor}
           qty={qty} setQty={setQty}
           logoPos={logoPos} setLogoPos={setLogoPos}
+          logoImage={logoImage} setLogoImage={setLogoImage}
+          logoSize={logoSize} setLogoSize={setLogoSize}
           customText={customText} setCustomText={setCustomText}
           textFont={textFont} setTextFont={setTextFont}
           textColor={textColor} setTextColor={setTextColor}
