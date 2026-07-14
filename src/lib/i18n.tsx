@@ -28,6 +28,9 @@ const STRINGS = {
     load_more: "Load more", not_found: "Product not found",
     dec_qty: "Decrease quantity", inc_qty: "Increase quantity",
     logo_label: "Logo",
+    upload_logo: "Upload your logo", replace_logo: "Replace image", remove_logo: "Remove image",
+    logo_size: "Logo size", image_surcharge: "Image logo scales with size",
+    image_hint: "PNG, JPG or SVG · max 4MB · stays inside the printable zone",
     // Auth
     sign_in: "Sign in", sign_up: "Sign up", sign_out: "Sign out",
     account: "Account", email: "Email", password: "Password",
