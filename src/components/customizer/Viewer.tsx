@@ -12,6 +12,8 @@ export function Viewer(props: {
   view: View;
   setView: (v: View) => void;
   logoPos: string | null;
+  logoImage: string | null;
+  logoSize: number;
   customText: string;
   textColor: string;
   textFont: string;
@@ -32,22 +34,28 @@ export function Viewer(props: {
     front: "view_front", back: "view_back", left: "view_left", right: "view_right",
   };
 
-  // Clamp within a safe zone: ~30% width around center
-  const clamp = (v: number) => Math.max(-40, Math.min(40, v));
+  // Printable zone: left 30%, top 22%, width 40%, height 50% → center at (50%, 47%)
+  // Overlay position is expressed relative to canvas center (percent).
+  // Approximate half-size of overlay in each axis to keep it fully inside the zone.
+  const halfW = props.logoImage ? props.logoSize / 2 : 6;
+  const halfH = props.logoImage ? props.logoSize / 2 : 6;
+  const clampX = (v: number) => Math.max(-20 + halfW, Math.min(20 - halfW, v));
+  const clampY = (v: number) => Math.max(-25 + halfH, Math.min(19 - halfH, v));
 
   useEffect(() => {
     if (!props.editMode) return;
     const onKey = (e: KeyboardEvent) => {
       if (props.view !== "front") return;
       const step = e.shiftKey ? 5 : 1;
-      if (e.key === "ArrowLeft") props.setOverlayPos({ x: clamp(props.overlayPos.x - step), y: props.overlayPos.y });
-      else if (e.key === "ArrowRight") props.setOverlayPos({ x: clamp(props.overlayPos.x + step), y: props.overlayPos.y });
-      else if (e.key === "ArrowUp") props.setOverlayPos({ x: props.overlayPos.x, y: clamp(props.overlayPos.y - step) });
-      else if (e.key === "ArrowDown") props.setOverlayPos({ x: props.overlayPos.x, y: clamp(props.overlayPos.y + step) });
+      if (e.key === "ArrowLeft") props.setOverlayPos({ x: clampX(props.overlayPos.x - step), y: props.overlayPos.y });
+      else if (e.key === "ArrowRight") props.setOverlayPos({ x: clampX(props.overlayPos.x + step), y: props.overlayPos.y });
+      else if (e.key === "ArrowUp") props.setOverlayPos({ x: props.overlayPos.x, y: clampY(props.overlayPos.y - step) });
+      else if (e.key === "ArrowDown") props.setOverlayPos({ x: props.overlayPos.x, y: clampY(props.overlayPos.y + step) });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [props]);
+  });
+
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (!props.editMode || props.view !== "front") return;
