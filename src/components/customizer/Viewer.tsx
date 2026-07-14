@@ -76,7 +76,7 @@ export function Viewer(props: {
     props.textFont === "brutal" ? "font-display" :
     props.textFont === "mono" ? "font-mono font-bold" : "font-sans font-black italic";
 
-  const hasOverlay = props.view === "front" && (props.customText || props.logoPos);
+  const hasOverlay = props.view === "front" && (props.customText || props.logoPos || props.logoImage);
 
   return (
     <div className="relative flex h-full w-full flex-col gap-4">
