@@ -7,6 +7,7 @@ import { useNavigate } from "@tanstack/react-router";
 export function CartDrawer() {
   const { items, remove, total, open, setOpen, count } = useCart();
   const { t } = useI18n();
+  const navigate = useNavigate();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
