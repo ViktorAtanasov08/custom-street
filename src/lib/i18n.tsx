@@ -71,6 +71,9 @@ const STRINGS = {
     load_more: "Cargar más", not_found: "Producto no encontrado",
     dec_qty: "Disminuir cantidad", inc_qty: "Aumentar cantidad",
     logo_label: "Logo",
+    upload_logo: "Sube tu logo", replace_logo: "Reemplazar imagen", remove_logo: "Quitar imagen",
+    logo_size: "Tamaño del logo", image_surcharge: "El logo escala con el tamaño",
+    image_hint: "PNG, JPG o SVG · máx 4MB · permanece dentro de la zona imprimible",
     // Auth
     sign_in: "Iniciar sesión", sign_up: "Registrarse", sign_out: "Cerrar sesión",
     account: "Cuenta", email: "Correo", password: "Contraseña",
