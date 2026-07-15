@@ -19,9 +19,9 @@ export const Route = createFileRoute("/product/$code")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `€{loaderData.name} — Merchango` },
+          { title: `${loaderData.name} — Merchango` },
           { name: "description", content: `Customize the ${loaderData.name}. ${loaderData.desc}` },
-          { property: "og:title", content: `€{loaderData.name} — Merchango` },
+          { property: "og:title", content: `${loaderData.name} — Merchango` },
           { property: "og:description", content: `Customize the ${loaderData.name}.` },
           ...(loaderData.colors[0]?.image
             ? [{ property: "og:image", content: loaderData.colors[0].image }]
@@ -87,7 +87,7 @@ function ProductPage() {
   }, [p.price, logoPos, customText, imageSurcharge]);
   const totalPrice = unitPrice * qty;
 
-  const summary = `€{t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "€{customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}${logoImage ? ` · ${t("custom_image")} (${logoSize}%)` : ""}`;
+  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}${logoImage ? ` · ${t("custom_image")} (${logoSize}%)` : ""}`;
 
   const onAdd = () => {
     const payload = {
@@ -165,7 +165,7 @@ function ProductPage() {
             onClick={onAdd}
             className="holo-gradient shrink-0 rounded-full px-5 py-3 font-display text-xs uppercase tracking-widest text-white shadow-[var(--gradient-holo-glow)] transition active:scale-95 sm:px-8 sm:text-sm"
           >
-            {isEdit ? "Update" : t("add_to_cart")} · ${totalPrice.toFixed(2)}
+            {isEdit ? "Update" : t("add_to_cart")} · €{totalPrice.toFixed(2)}
           </button>
         </div>
       </div>
