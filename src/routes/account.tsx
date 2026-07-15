@@ -120,7 +120,7 @@ function AccountPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Stat icon={<Package className="h-4 w-4" />} label="Total orders" value={scoped.length.toString()} />
           <Stat icon={<ShoppingBag className="h-4 w-4" />} label="Items ordered" value={totalItems.toString()} />
-          <Stat icon={<TrendingUp className="h-4 w-4" />} label="Lifetime spend" value={`$${totalSpent.toFixed(2)}`} />
+          <Stat icon={<TrendingUp className="h-4 w-4" />} label="Lifetime spend" value={`€${totalSpent.toFixed(2)}`} />
           <Stat icon={<UserIcon className="h-4 w-4" />} label="Status" value={scoped.length ? "Active" : "New"} />
         </div>
 

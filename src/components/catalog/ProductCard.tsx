@@ -17,7 +17,7 @@ export function ProductCard({ p, i }: { p: Product; i: number }) {
       >
         <div
           className="relative aspect-square overflow-hidden"
-          style={{ backgroundColor: primary?.hex ? `${primary.hex}22` : "var(--cream)" }}
+          style={{ backgroundColor: primary?.hex ? `€{primary.hex}22` : "var(--cream)" }}
         >
           {primary?.image && (
             <img
