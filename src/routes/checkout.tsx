@@ -162,7 +162,7 @@ function CheckoutPage() {
                       )}
                     </div>
                     <p className="whitespace-nowrap text-sm font-semibold">
-                      ${(i.unitPrice * i.qty).toFixed(2)}
+                      €{(i.unitPrice * i.qty).toFixed(2)}
                     </p>
                   </li>
                 ))}
