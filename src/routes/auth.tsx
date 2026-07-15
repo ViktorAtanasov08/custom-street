@@ -74,6 +74,22 @@ function AuthPage() {
               className="w-full rounded-lg border border-border bg-background px-4 py-3 outline-none transition focus:border-foreground"
             />
           </div>
+          {!isSignup && (
+            <div className="text-right">
+              <button
+                type="button"
+                onClick={async () => {
+                  if (!email) { toast.error(t("forgot_need_email")); return; }
+                  const { error } = await resetPassword(email);
+                  if (error) toast.error(error);
+                  else toast.success(t("forgot_sent"));
+                }}
+                className="text-xs uppercase tracking-widest text-muted-foreground underline underline-offset-4 hover:text-foreground"
+              >
+                {t("forgot_password")}
+              </button>
+            </div>
+          )}
           <button
             type="submit" disabled={busy}
             className="holo-gradient w-full rounded-full py-3 font-display text-sm uppercase tracking-widest text-white shadow-lg transition active:scale-95 disabled:opacity-60"
