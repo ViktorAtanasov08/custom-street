@@ -53,9 +53,10 @@ function ProductPage() {
 
   const [size, setSize] = useState(editing?.size ?? p.sizes[Math.min(2, p.sizes.length - 1)]);
   const [color, setColor] = useState(
-    editing ? (p.colors.find((c) => c.name === editing.colorName) ?? p.colors[0])
+    editing ? (p.colors.find((c: typeof p.colors[number]) => c.name === editing.colorName) ?? p.colors[0])
     : (p.colors.find((c: typeof p.colors[number]) => c.image) ?? p.colors[0])
   );
+
   const [qty, setQty] = useState(editing?.qty ?? 1);
   const [view, setView] = useState<View>("front");
   const [logoPos, setLogoPos] = useState<string | null>(editing?.logoPlacement ?? null);
