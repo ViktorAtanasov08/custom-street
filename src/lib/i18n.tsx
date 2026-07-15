@@ -42,7 +42,7 @@ const STRINGS = {
     auth_success_signin: "Signed in", auth_success_signup: "Account created",
     auth_success_signout: "Signed out",
     auth_err_generic: "Something went wrong. Try again.",
-    my_account: "My account",
+    my_account: "My account", forgot_password: "Forgot password?", forgot_need_email: "Enter your email first", forgot_sent: "Password reset email sent", reset_title: "Set a new password", reset_sub: "Enter and confirm your new password.", new_password: "New password", confirm_password: "Confirm password", reset_submit: "Update password", reset_success: "Password updated", reset_mismatch: "Passwords do not match",
     // Checkout
     checkout_title: "Checkout", checkout_sub: "Just a few details and your pieces are on the way.",
     contact_info: "Contact", shipping_address: "Shipping address",
@@ -97,7 +97,7 @@ const STRINGS = {
     auth_success_signin: "Sesión iniciada", auth_success_signup: "Cuenta creada",
     auth_success_signout: "Sesión cerrada",
     auth_err_generic: "Algo salió mal. Inténtalo de nuevo.",
-    my_account: "Mi cuenta",
+    my_account: "Mi cuenta", forgot_password: "¿Olvidaste tu contraseña?", forgot_need_email: "Escribe tu correo primero", forgot_sent: "Correo de recuperación enviado", reset_title: "Nueva contraseña", reset_sub: "Escribe y confirma tu nueva contraseña.", new_password: "Nueva contraseña", confirm_password: "Confirmar contraseña", reset_submit: "Actualizar contraseña", reset_success: "Contraseña actualizada", reset_mismatch: "Las contraseñas no coinciden",
     // Checkout
     checkout_title: "Pagar", checkout_sub: "Unos datos y tus piezas van en camino.",
     contact_info: "Contacto", shipping_address: "Dirección de envío",
