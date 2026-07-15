@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Lock, ShieldCheck, Truck } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "@/lib/cart-store";
+import { useOrders } from "@/lib/orders-store";
+import { useAuth } from "@/lib/auth-context";
 import { useI18n } from "@/lib/i18n";
+
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -24,6 +27,8 @@ export const Route = createFileRoute("/checkout")({
 function CheckoutPage() {
   const { t } = useI18n();
   const { items, total, clear } = useCart();
+  const { addOrder } = useOrders();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
 
@@ -36,11 +41,22 @@ function CheckoutPage() {
     if (!items.length) return;
     setBusy(true);
     const orderNumber = "MRC-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+    const snapshot = items;
     setTimeout(() => {
+      addOrder({
+        number: orderNumber,
+        items: snapshot,
+        subtotal: total,
+        shipping,
+        tax,
+        total: grand,
+        userEmail: user?.email ?? null,
+      });
       clear();
       navigate({ to: "/thanks", search: { order: orderNumber } });
     }, 1100);
   };
+
 
   if (!items.length) {
     return (
