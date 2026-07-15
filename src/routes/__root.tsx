@@ -13,7 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "../lib/i18n";
 import { CartProvider } from "../lib/cart-store";
+import { OrdersProvider } from "../lib/orders-store";
 import { AuthProvider } from "../lib/auth-context";
+
 import { TopNav } from "../components/nav/TopNav";
 import { CartDrawer } from "../components/cart/CartDrawer";
 
@@ -117,16 +119,19 @@ function RootComponent() {
       <I18nProvider>
         <AuthProvider>
           <CartProvider>
-            <div className="min-h-screen">
-              <TopNav />
-              <main>
-                <Outlet />
-              </main>
-              <CartDrawer />
-              <Toaster position="top-center" richColors />
-            </div>
+            <OrdersProvider>
+              <div className="min-h-screen">
+                <TopNav />
+                <main>
+                  <Outlet />
+                </main>
+                <CartDrawer />
+                <Toaster position="top-center" richColors />
+              </div>
+            </OrdersProvider>
           </CartProvider>
         </AuthProvider>
+
       </I18nProvider>
     </QueryClientProvider>
   );
