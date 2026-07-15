@@ -19,9 +19,9 @@ export const Route = createFileRoute("/product/$code")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.name} — Merchango` },
+          { title: `€{loaderData.name} — Merchango` },
           { name: "description", content: `Customize the ${loaderData.name}. ${loaderData.desc}` },
-          { property: "og:title", content: `${loaderData.name} — Merchango` },
+          { property: "og:title", content: `€{loaderData.name} — Merchango` },
           { property: "og:description", content: `Customize the ${loaderData.name}.` },
           ...(loaderData.colors[0]?.image
             ? [{ property: "og:image", content: loaderData.colors[0].image }]
@@ -87,7 +87,7 @@ function ProductPage() {
   }, [p.price, logoPos, customText, imageSurcharge]);
   const totalPrice = unitPrice * qty;
 
-  const summary = `${t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "${customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}${logoImage ? ` · ${t("custom_image")} (${logoSize}%)` : ""}`;
+  const summary = `€{t("summary_size")} ${size} · ${color.name}${customText ? ` · ${t("summary_text")}: "€{customText}"` : ""}${logoPos ? ` · ${t("logo_label")}` : ""}${logoImage ? ` · ${t("custom_image")} (${logoSize}%)` : ""}`;
 
   const onAdd = () => {
     const payload = {
