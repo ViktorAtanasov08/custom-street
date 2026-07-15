@@ -162,7 +162,7 @@ function AccountPage() {
                     </div>
                     <div className="flex items-center gap-3">
                       <StatusPill status={o.status} />
-                      <p className="font-semibold">${o.total.toFixed(2)}</p>
+                      <p className="font-semibold">€{o.total.toFixed(2)}</p>
                     </div>
                   </div>
                   <ul className="divide-y divide-border">
@@ -180,7 +180,7 @@ function AccountPage() {
                             {i.size} · {i.colorName} · Qty {i.qty}
                           </p>
                         </div>
-                        <p className="whitespace-nowrap text-sm font-medium">${(i.unitPrice * i.qty).toFixed(2)}</p>
+                        <p className="whitespace-nowrap text-sm font-medium">€{(i.unitPrice * i.qty).toFixed(2)}</p>
                       </li>
                     ))}
                   </ul>

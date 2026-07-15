@@ -174,7 +174,7 @@ function CheckoutPage() {
                 <Row label={t("tax")} value={`€${tax.toFixed(2)}`} />
                 <div className="mt-3 flex items-center justify-between border-t border-border pt-3 font-display text-lg uppercase">
                   <span>{t("total")}</span>
-                  <span>${grand.toFixed(2)}</span>
+                  <span>€{grand.toFixed(2)}</span>
                 </div>
               </div>
 

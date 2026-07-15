@@ -17,7 +17,7 @@ export function ProductCard({ p, i }: { p: Product; i: number }) {
       >
         <div
           className="relative aspect-square overflow-hidden"
-          style={{ backgroundColor: primary?.hex ? `€{primary.hex}22` : "var(--cream)" }}
+          style={{ backgroundColor: primary?.hex ? `${primary.hex}22` : "var(--cream)" }}
         >
           {primary?.image && (
             <img
@@ -35,7 +35,7 @@ export function ProductCard({ p, i }: { p: Product; i: number }) {
           <p className="truncate font-display text-lg uppercase leading-tight">{p.name}</p>
           <p className="line-clamp-1 text-xs text-muted-foreground">{p.category}</p>
           <div className="mt-2 flex items-center justify-between">
-            <span className="font-semibold">${p.price.toFixed(2)}</span>
+            <span className="font-semibold">€{p.price.toFixed(2)}</span>
             <div className="flex -space-x-1">
               {p.colors.slice(0, 4).map((c) => (
                 <span

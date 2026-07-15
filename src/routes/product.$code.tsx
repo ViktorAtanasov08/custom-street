@@ -159,7 +159,7 @@ function ProductPage() {
           </div>
           <div className="hidden sm:block">
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground text-right">{t("cart_total")}</p>
-            <p className="text-lg font-semibold">${totalPrice.toFixed(2)}</p>
+            <p className="text-lg font-semibold">€{totalPrice.toFixed(2)}</p>
           </div>
           <button
             onClick={onAdd}
