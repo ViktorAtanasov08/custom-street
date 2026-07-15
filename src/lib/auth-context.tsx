@@ -9,10 +9,12 @@ type AuthState = {
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: string | null }>;
 };
 
 const Ctx = createContext<AuthState>({
   user: null, session: null, loading: true,
+  resetPassword: async () => ({ error: null }),
   signIn: async () => ({ error: null }),
   signUp: async () => ({ error: null }),
   signOut: async () => {},
