@@ -1,8 +1,9 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
-import { X } from "lucide-react";
+import { Pencil, X } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+
 
 export function CartDrawer() {
   const { items, remove, total, open, setOpen, count } = useCart();
@@ -36,13 +37,25 @@ export function CartDrawer() {
                   <div className="flex min-w-0 flex-1 flex-col gap-1">
                     <div className="flex items-start justify-between gap-2">
                       <p className="truncate font-display text-sm uppercase">{i.name}</p>
-                      <button
-                        onClick={() => remove(i.id)}
-                        aria-label={t("cart_remove")}
-                        className="text-muted-foreground hover:text-foreground"
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => {
+                            setOpen(false);
+                            navigate({ to: "/product/$code", params: { code: i.code }, search: { edit: i.id } });
+                          }}
+                          aria-label="Edit"
+                          className="text-muted-foreground hover:text-foreground"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          onClick={() => remove(i.id)}
+                          aria-label={t("cart_remove")}
+                          className="text-muted-foreground hover:text-foreground"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {t("summary_size")} {i.size} · {i.colorName} · {t("summary_qty")} {i.qty}
@@ -53,6 +66,7 @@ export function CartDrawer() {
                       </p>
                     )}
                     {i.logoPlacement && (
+
                       <p className="text-xs text-muted-foreground">{t("logo_label")}: {i.logoPlacement}</p>
                     )}
                     <p className="mt-auto text-sm font-semibold">
