@@ -70,7 +70,7 @@ export function CartDrawer() {
                       <p className="text-xs text-muted-foreground">{t("logo_label")}: {i.logoPlacement}</p>
                     )}
                     <p className="mt-auto text-sm font-semibold">
-                      ${(i.unitPrice * i.qty).toFixed(2)}
+                      €{(i.unitPrice * i.qty).toFixed(2)}
                     </p>
                   </div>
                 </li>
@@ -83,7 +83,7 @@ export function CartDrawer() {
           <div className="border-t border-border p-4">
             <div className="mb-3 flex items-center justify-between font-display text-lg uppercase">
               <span>{t("cart_total")}</span>
-              <span>${total.toFixed(2)}</span>
+              <span>€{total.toFixed(2)}</span>
             </div>
             <button
               onClick={() => { setOpen(false); navigate({ to: "/checkout" }); }}

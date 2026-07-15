@@ -120,7 +120,7 @@ function AccountPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Stat icon={<Package className="h-4 w-4" />} label="Total orders" value={scoped.length.toString()} />
           <Stat icon={<ShoppingBag className="h-4 w-4" />} label="Items ordered" value={totalItems.toString()} />
-          <Stat icon={<TrendingUp className="h-4 w-4" />} label="Lifetime spend" value={`$${totalSpent.toFixed(2)}`} />
+          <Stat icon={<TrendingUp className="h-4 w-4" />} label="Lifetime spend" value={`€${totalSpent.toFixed(2)}`} />
           <Stat icon={<UserIcon className="h-4 w-4" />} label="Status" value={scoped.length ? "Active" : "New"} />
         </div>
 
@@ -162,7 +162,7 @@ function AccountPage() {
                     </div>
                     <div className="flex items-center gap-3">
                       <StatusPill status={o.status} />
-                      <p className="font-semibold">${o.total.toFixed(2)}</p>
+                      <p className="font-semibold">€{o.total.toFixed(2)}</p>
                     </div>
                   </div>
                   <ul className="divide-y divide-border">
@@ -180,7 +180,7 @@ function AccountPage() {
                             {i.size} · {i.colorName} · Qty {i.qty}
                           </p>
                         </div>
-                        <p className="whitespace-nowrap text-sm font-medium">${(i.unitPrice * i.qty).toFixed(2)}</p>
+                        <p className="whitespace-nowrap text-sm font-medium">€{(i.unitPrice * i.qty).toFixed(2)}</p>
                       </li>
                     ))}
                   </ul>

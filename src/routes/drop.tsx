@@ -125,7 +125,7 @@ function Drop() {
                   <p className="line-clamp-1 text-xs text-muted-foreground">{p.category}</p>
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-sm font-semibold text-muted-foreground line-through">
-                      ${p.price.toFixed(2)}
+                      €{p.price.toFixed(2)}
                     </span>
                     <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                       {copy.comingSoon}

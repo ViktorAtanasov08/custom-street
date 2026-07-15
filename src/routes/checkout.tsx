@@ -162,19 +162,19 @@ function CheckoutPage() {
                       )}
                     </div>
                     <p className="whitespace-nowrap text-sm font-semibold">
-                      ${(i.unitPrice * i.qty).toFixed(2)}
+                      €{(i.unitPrice * i.qty).toFixed(2)}
                     </p>
                   </li>
                 ))}
               </ul>
 
               <div className="space-y-2 border-t border-border px-5 py-4 text-sm">
-                <Row label={t("subtotal")} value={`$${total.toFixed(2)}`} />
-                <Row label={t("shipping")} value={shipping === 0 ? t("free") : `$${shipping.toFixed(2)}`} />
-                <Row label={t("tax")} value={`$${tax.toFixed(2)}`} />
+                <Row label={t("subtotal")} value={`€${total.toFixed(2)}`} />
+                <Row label={t("shipping")} value={shipping === 0 ? t("free") : `€${shipping.toFixed(2)}`} />
+                <Row label={t("tax")} value={`€${tax.toFixed(2)}`} />
                 <div className="mt-3 flex items-center justify-between border-t border-border pt-3 font-display text-lg uppercase">
                   <span>{t("total")}</span>
-                  <span>${grand.toFixed(2)}</span>
+                  <span>€{grand.toFixed(2)}</span>
                 </div>
               </div>
 

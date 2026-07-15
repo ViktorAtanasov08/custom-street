@@ -57,7 +57,7 @@ export function ControlPanel(props: {
         <h1 className="mt-1 font-display text-3xl uppercase leading-none tracking-tight sm:text-4xl">
           {p.name} <span className="text-holo">v1.0</span>
         </h1>
-        <p className="mt-2 text-2xl font-semibold">${props.totalPrice.toFixed(2)} USD</p>
+        <p className="mt-2 text-2xl font-semibold">${props.totalPrice.toFixed(2)} EUR</p>
         {p.desc && <p className="mt-3 line-clamp-3 text-sm text-muted-foreground">{p.desc}</p>}
       </div>
 

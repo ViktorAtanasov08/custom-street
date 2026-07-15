@@ -159,13 +159,13 @@ function ProductPage() {
           </div>
           <div className="hidden sm:block">
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground text-right">{t("cart_total")}</p>
-            <p className="text-lg font-semibold">${totalPrice.toFixed(2)}</p>
+            <p className="text-lg font-semibold">€{totalPrice.toFixed(2)}</p>
           </div>
           <button
             onClick={onAdd}
             className="holo-gradient shrink-0 rounded-full px-5 py-3 font-display text-xs uppercase tracking-widest text-white shadow-[var(--gradient-holo-glow)] transition active:scale-95 sm:px-8 sm:text-sm"
           >
-            {isEdit ? "Update" : t("add_to_cart")} · ${totalPrice.toFixed(2)}
+            {isEdit ? "Update" : t("add_to_cart")} · €{totalPrice.toFixed(2)}
           </button>
         </div>
       </div>

@@ -9,10 +9,12 @@ type AuthState = {
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: string | null }>;
 };
 
 const Ctx = createContext<AuthState>({
   user: null, session: null, loading: true,
+  resetPassword: async () => ({ error: null }),
   signIn: async () => ({ error: null }),
   signUp: async () => ({ error: null }),
   signOut: async () => {},
@@ -48,9 +50,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null };
   };
   const signOut = async () => { await supabase.auth.signOut(); };
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    return { error: error?.message ?? null };
+  };
 
   return (
-    <Ctx.Provider value={{ user, session, loading, signIn, signUp, signOut }}>
+    <Ctx.Provider value={{ user, session, loading, signIn, signUp, signOut, resetPassword }}>
+
       {children}
     </Ctx.Provider>
   );
