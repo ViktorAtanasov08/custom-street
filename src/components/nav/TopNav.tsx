@@ -99,15 +99,24 @@ export function TopNav() {
                     {t("account")}
                     <p className="truncate text-foreground">{user.email}</p>
                   </div>
+                  <Link
+                    to="/account"
+                    onClick={() => setMenu(false)}
+                    className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm transition hover:bg-muted"
+                  >
+                    <UserIcon className="h-4 w-4" />
+                    {t("my_account")}
+                  </Link>
                   <button
                     onClick={doSignOut}
-                    className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm transition hover:bg-muted"
+                    className="flex w-full items-center gap-2 border-t border-border px-3 py-2.5 text-left text-sm transition hover:bg-muted"
                   >
                     <LogOut className="h-4 w-4" />
                     {t("sign_out")}
                   </button>
                 </div>
               )}
+
             </div>
           ) : (
             <Link
