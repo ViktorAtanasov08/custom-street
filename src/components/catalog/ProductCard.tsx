@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
+import { useI18n } from "@/lib/i18n";
 
 export function ProductCard({ p, i }: { p: Product; i: number }) {
+  const { tr } = useI18n();
   const primary = p.colors.find((c) => c.image) ?? p.colors[0];
   return (
     <motion.div
