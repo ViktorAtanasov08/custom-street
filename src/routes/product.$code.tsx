@@ -65,6 +65,7 @@ function ProductPage() {
   const [customText, setCustomText] = useState(editing?.customText ?? "");
   const [textFont, setTextFont] = useState(editing?.textFont ?? "brutal");
   const [textColor, setTextColor] = useState(editing?.textColor ?? "#0a0a0a");
+  const [textSize, setTextSize] = useState(24);
   const [overlayPos, setOverlayPos] = useState({ x: 0, y: -10 });
   const [editMode, setEditMode] = useState(false);
 
