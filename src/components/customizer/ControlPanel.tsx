@@ -16,9 +16,10 @@ export function ControlPanel(props: {
   customText: string; setCustomText: (v: string) => void;
   textFont: string; setTextFont: (v: string) => void;
   textColor: string; setTextColor: (v: string) => void;
+  textSize: number; setTextSize: (n: number) => void;
   totalPrice: number;
 }) {
-  const { t } = useI18n();
+  const { t, tr } = useI18n();
   const p = props.product;
   const fileRef = useRef<HTMLInputElement>(null);
 
