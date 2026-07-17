@@ -240,6 +240,23 @@ export function ControlPanel(props: {
               ))}
             </div>
           </div>
+
+          <div>
+            <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-widest">
+              <span>{t("text_size")}</span>
+              <span className="font-semibold">{props.textSize}</span>
+            </div>
+            <input
+              type="range"
+              min={10}
+              max={60}
+              step={1}
+              value={props.textSize}
+              onChange={(e) => props.setTextSize(Number(e.target.value))}
+              className="w-full accent-foreground"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">{t("text_on_sleeves")}</p>
+          </div>
           {props.customText && (
             <p className="text-xs text-muted-foreground">{t("text_surcharge")}</p>
           )}
