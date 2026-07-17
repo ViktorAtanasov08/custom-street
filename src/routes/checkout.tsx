@@ -117,11 +117,94 @@ function CheckoutPage() {
             </Section>
 
             <Section title={t("payment")} icon={<Lock className="h-4 w-4" />}>
-              <Field label={t("card_number")} name="card" required placeholder="4242 4242 4242 4242" inputMode="numeric" />
-              <div className="grid grid-cols-2 gap-3">
-                <Field label={t("card_expiry")} name="exp" required placeholder="12 / 27" />
-                <Field label={t("card_cvc")} name="cvc" required placeholder="123" inputMode="numeric" />
+              <div className="mb-1">
+                <p className="mb-2 text-[11px] uppercase tracking-widest text-muted-foreground">{t("pay_method")}</p>
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+                  {(
+                    [
+                      { id: "card", label: t("pay_card") },
+                      { id: "apple", label: t("pay_apple") },
+                      { id: "google", label: t("pay_google") },
+                      { id: "paypal", label: t("pay_paypal") },
+                      { id: "revolut", label: t("pay_revolut") },
+                      { id: "klarna", label: t("pay_klarna") },
+                    ] as const
+                  ).map((m) => {
+                    const active = payMethod === m.id;
+                    return (
+                      <button
+                        type="button"
+                        key={m.id}
+                        onClick={() => setPayMethod(m.id)}
+                        aria-pressed={active}
+                        className={`group relative flex h-14 items-center justify-center rounded-xl border px-2 text-[11px] font-semibold uppercase tracking-widest transition ${
+                          active
+                            ? "border-foreground bg-foreground text-background shadow-sm"
+                            : "border-border bg-background text-muted-foreground hover:border-foreground/50 hover:text-foreground"
+                        }`}
+                      >
+                        <PayIcon id={m.id} active={active} />
+                        <span className="sr-only">{m.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+
+              <AnimatePresence mode="wait" initial={false}>
+                {payMethod === "card" && (
+                  <motion.div
+                    key="card"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="space-y-3 pt-1"
+                  >
+                    <Field label={t("card_number")} name="card" required placeholder="4242 4242 4242 4242" inputMode="numeric" />
+                    <div className="grid grid-cols-2 gap-3">
+                      <Field label={t("card_expiry")} name="exp" required placeholder="12 / 27" />
+                      <Field label={t("card_cvc")} name="cvc" required placeholder="123" inputMode="numeric" />
+                    </div>
+                  </motion.div>
+                )}
+
+                {(payMethod === "apple" || payMethod === "google") && (
+                  <motion.div
+                    key={payMethod}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="rounded-xl border border-dashed border-border bg-muted/30 p-5 text-center"
+                  >
+                    <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center">
+                      <PayIcon id={payMethod} active />
+                    </div>
+                    <p className="font-display text-sm uppercase tracking-wider">
+                      {payMethod === "apple" ? t("pay_apple") : t("pay_google")}
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{t("pay_wallet_note")}</p>
+                  </motion.div>
+                )}
+
+                {(payMethod === "paypal" || payMethod === "revolut" || payMethod === "klarna") && (
+                  <motion.div
+                    key={payMethod}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="rounded-xl border border-dashed border-border bg-muted/30 p-5 text-center"
+                  >
+                    <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center">
+                      <PayIcon id={payMethod} active />
+                    </div>
+                    <p className="font-display text-sm uppercase tracking-wider">
+                      {payMethod === "paypal" ? t("pay_paypal") : payMethod === "revolut" ? t("pay_revolut") : t("pay_klarna")}
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{t("pay_redirect_note")}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                 <ShieldCheck className="h-3 w-3" /> {t("demo_note")}
               </p>
