@@ -87,6 +87,7 @@ const STRINGS = {
     logo_label: "Logo",
     upload_logo: "Sube tu logo", replace_logo: "Reemplazar imagen", remove_logo: "Quitar imagen",
     logo_size: "Tamaño del logo", image_surcharge: "El logo escala con el tamaño",
+    text_size: "Tamaño del texto", text_on_sleeves: "También impreso en las mangas",
     image_hint: "PNG, JPG o SVG · máx 4MB · permanece dentro de la zona imprimible", custom_image: "Imagen personalizada",
     // Auth
     sign_in: "Iniciar sesión", sign_up: "Registrarse", sign_out: "Cerrar sesión",
