@@ -130,7 +130,7 @@ function ProductPage() {
             color={color} view={view} setView={setView}
             logoPos={logoPos} logoImage={logoImage} logoSize={logoSize}
             customText={customText}
-            textColor={textColor} textFont={textFont}
+            textColor={textColor} textFont={textFont} textSize={textSize}
             overlayPos={overlayPos} setOverlayPos={setOverlayPos}
             editMode={editMode} setEditMode={setEditMode}
           />
