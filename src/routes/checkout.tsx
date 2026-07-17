@@ -31,6 +31,7 @@ function CheckoutPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+  const [payMethod, setPayMethod] = useState<"card" | "apple" | "google" | "paypal" | "revolut" | "klarna">("card");
 
   const shipping = total > 120 ? 0 : total > 0 ? 9 : 0;
   const tax = Math.round(total * 0.08 * 100) / 100;
