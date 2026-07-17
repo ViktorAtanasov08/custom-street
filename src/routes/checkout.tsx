@@ -268,7 +268,19 @@ function CheckoutPage() {
                   disabled={busy}
                   className="holo-gradient relative w-full overflow-hidden rounded-full py-4 font-display text-sm uppercase tracking-[0.2em] text-white shadow-lg transition active:scale-[0.98] disabled:opacity-70"
                 >
-                  {busy ? t("processing") : t("place_order")}
+                  {busy
+                    ? t("processing")
+                    : payMethod === "apple"
+                    ? `Pay with ${t("pay_apple")}`
+                    : payMethod === "google"
+                    ? `Pay with ${t("pay_google")}`
+                    : payMethod === "paypal"
+                    ? `Continue with ${t("pay_paypal")}`
+                    : payMethod === "revolut"
+                    ? `Continue with ${t("pay_revolut")}`
+                    : payMethod === "klarna"
+                    ? `Continue with ${t("pay_klarna")}`
+                    : t("place_order")}
                 </button>
                 <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
                   <Lock className="h-3 w-3" /> Secure · encrypted · Merchango
