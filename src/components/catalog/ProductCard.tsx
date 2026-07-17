@@ -30,12 +30,12 @@ export function ProductCard({ p, i }: { p: Product; i: number }) {
             />
           )}
           <span className="absolute left-3 top-3 rounded-full bg-background/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
-            {p.family || "Drop"}
+            {tr(p.family) || "Drop"}
           </span>
         </div>
         <div className="flex flex-col gap-1 p-4">
           <p className="truncate font-display text-lg uppercase leading-tight">{p.name}</p>
-          <p className="line-clamp-1 text-xs text-muted-foreground">{p.category}</p>
+          <p className="line-clamp-1 text-xs text-muted-foreground">{tr(p.category)}</p>
           <div className="mt-2 flex items-center justify-between">
             <span className="font-semibold">€{p.price.toFixed(2)}</span>
             <div className="flex -space-x-1">
