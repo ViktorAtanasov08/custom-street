@@ -73,7 +73,7 @@ function Shop() {
           aria-label={t("filter_category")}
         >
           <option value="__all">{t("filter_all")} · {t("filter_category")}</option>
-          {families.map((f) => <option key={f} value={f}>{f}</option>)}
+          {families.map((f) => <option key={f} value={f}>{tr(f)}</option>)}
         </select>
         <select
           value={gender}
@@ -82,7 +82,7 @@ function Shop() {
           aria-label={t("filter_gender")}
         >
           <option value="__all">{t("filter_all")} · {t("filter_gender")}</option>
-          {genders.map((g) => <option key={g} value={g}>{g}</option>)}
+          {genders.map((g) => <option key={g} value={g}>{tr(g)}</option>)}
         </select>
       </div>
 
