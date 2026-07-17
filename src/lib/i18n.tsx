@@ -30,6 +30,7 @@ const STRINGS = {
     logo_label: "Logo",
     upload_logo: "Upload your logo", replace_logo: "Replace image", remove_logo: "Remove image",
     logo_size: "Logo size", image_surcharge: "Image logo scales with size",
+    text_size: "Text size", text_on_sleeves: "Also printed on sleeves",
     image_hint: "PNG, JPG or SVG · max 4MB · stays inside the printable zone", custom_image: "Custom image",
     // Auth
     sign_in: "Sign in", sign_up: "Sign up", sign_out: "Sign out",
