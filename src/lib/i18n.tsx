@@ -115,12 +115,69 @@ const STRINGS = {
   },
 } as const;
 
+// Catalog term translations (data comes from a Spanish source).
+const TERMS: Record<string, string> = {
+  // families
+  "Bañadores": "Swimwear",
+  "Bermudas": "Shorts",
+  "Bodies": "Bodysuits",
+  "Calcetas Y Calcetines": "Socks",
+  "Camisetas": "T-Shirts",
+  "Chalecos": "Vests",
+  "Chaquetas": "Jackets",
+  "Chubasqueros": "Raincoats",
+  "Conjuntos Deportivos": "Tracksuits",
+  "Cortavientos": "Windbreakers",
+  "Faldas": "Skirts",
+  "Leggings": "Leggings",
+  "Paddle": "Padel",
+  "Pantalones Cortos": "Shorts",
+  "Pantalones": "Pants",
+  "Parkas": "Parkas",
+  "Petos Deportivos": "Sport Bibs",
+  "Polos": "Polos",
+  "Ropa Abrigo": "Outerwear",
+  "Ropa Deportiva": "Sportswear",
+  "Softshells": "Softshells",
+  "Sudaderas": "Hoodies",
+  // gender
+  "Hombre": "Men",
+  "Mujer": "Women",
+  "Unisex": "Unisex",
+  // category
+  "Básico": "Basic",
+  "Otros": "Other",
+  // color words (most common)
+  "Blanco": "White", "Negro": "Black", "Rojo": "Red", "Azul": "Blue",
+  "Verde": "Green", "Amarillo": "Yellow", "Gris": "Grey", "Marino": "Navy",
+  "Celeste": "Sky Blue", "Rosa": "Pink", "Naranja": "Orange", "Turquesa": "Turquoise",
+  "Morado": "Purple", "Beige": "Beige", "Crudo": "Ivory",
+};
+
 type Lang = "en" | "es";
 type Key = keyof typeof STRINGS.en;
 
-const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: (k: Key) => string }>({
-  lang: "en", setLang: () => {}, t: (k) => STRINGS.en[k],
+const Ctx = createContext<{
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  t: (k: Key) => string;
+  tr: (term: string) => string;
+}>({
+  lang: "en", setLang: () => {}, t: (k) => STRINGS.en[k], tr: (s) => s,
 });
+
+function translateTerm(term: string, lang: Lang): string {
+  if (lang !== "en" || !term) return term;
+  // direct hit
+  if (TERMS[term]) return TERMS[term];
+  // multi-word: translate each token if known
+  const parts = term.split(/\s+/);
+  if (parts.length > 1) {
+    const mapped = parts.map((p) => TERMS[p] ?? p);
+    if (mapped.some((m, i) => m !== parts[i])) return mapped.join(" ");
+  }
+  return term;
+}
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
@@ -135,6 +192,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem("merchango.lang", l); } catch {}
   };
   const t = (k: Key) => STRINGS[lang][k];
-  return <Ctx.Provider value={{ lang, setLang: set, t }}>{children}</Ctx.Provider>;
+  const tr = (s: string) => translateTerm(s, lang);
+  return <Ctx.Provider value={{ lang, setLang: set, t, tr }}>{children}</Ctx.Provider>;
 }
 export const useI18n = () => useContext(Ctx);
