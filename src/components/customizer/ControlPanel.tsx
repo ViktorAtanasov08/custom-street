@@ -16,9 +16,10 @@ export function ControlPanel(props: {
   customText: string; setCustomText: (v: string) => void;
   textFont: string; setTextFont: (v: string) => void;
   textColor: string; setTextColor: (v: string) => void;
+  textSize: number; setTextSize: (n: number) => void;
   totalPrice: number;
 }) {
-  const { t } = useI18n();
+  const { t, tr } = useI18n();
   const p = props.product;
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -53,7 +54,7 @@ export function ControlPanel(props: {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">{p.family} · {p.gender}</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">{tr(p.family)} · {tr(p.gender)}</p>
         <h1 className="mt-1 font-display text-3xl uppercase leading-none tracking-tight sm:text-4xl">
           {p.name} <span className="text-holo">v1.0</span>
         </h1>
@@ -238,6 +239,23 @@ export function ControlPanel(props: {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div>
+            <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-widest">
+              <span>{t("text_size")}</span>
+              <span className="font-semibold">{props.textSize}</span>
+            </div>
+            <input
+              type="range"
+              min={10}
+              max={60}
+              step={1}
+              value={props.textSize}
+              onChange={(e) => props.setTextSize(Number(e.target.value))}
+              className="w-full accent-foreground"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">{t("text_on_sleeves")}</p>
           </div>
           {props.customText && (
             <p className="text-xs text-muted-foreground">{t("text_surcharge")}</p>

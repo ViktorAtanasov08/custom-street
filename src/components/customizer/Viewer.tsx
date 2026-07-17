@@ -17,6 +17,7 @@ export function Viewer(props: {
   customText: string;
   textColor: string;
   textFont: string;
+  textSize: number;
   overlayPos: Overlay;
   setOverlayPos: (p: Overlay) => void;
   editMode: boolean;
@@ -76,7 +77,9 @@ export function Viewer(props: {
     props.textFont === "brutal" ? "font-display" :
     props.textFont === "mono" ? "font-mono font-bold" : "font-sans font-black italic";
 
-  const hasOverlay = props.view === "front" && (props.customText || props.logoPos || props.logoImage);
+  const hasFrontOverlay = props.view === "front" && (props.customText || props.logoPos || props.logoImage);
+  const showSleeveText = (props.view === "left" || props.view === "right") && Boolean(props.customText);
+  const textPx = 12 + props.textSize * 0.6; // slider drives on-shirt size
 
   return (
     <div className="relative flex h-full w-full flex-col gap-4">
@@ -120,8 +123,8 @@ export function Viewer(props: {
               />
             )}
 
-            {/* Overlay content */}
-            {hasOverlay && (
+            {/* Front overlay content */}
+            {hasFrontOverlay && (
               <div
                 className="pointer-events-none absolute flex flex-col items-center gap-1"
                 style={{
@@ -146,8 +149,10 @@ export function Viewer(props: {
                 )}
                 {props.customText && (
                   <span
-                    className={`${fontClass} text-2xl uppercase tracking-tight`}
+                    className={`${fontClass} uppercase tracking-tight`}
                     style={{
+                      fontSize: `${textPx}px`,
+                      lineHeight: 1,
                       color: props.textColor,
                       textShadow: `0 0 1px ${contrastStroke(props.textColor, props.color.hex)}, 0 1px 2px rgba(0,0,0,0.15)`,
                     }}
@@ -157,8 +162,33 @@ export function Viewer(props: {
                 )}
               </div>
             )}
+
+            {/* Sleeve text mirror on left/right views */}
+            {showSleeveText && (
+              <div
+                className="pointer-events-none absolute"
+                style={{
+                  left: props.view === "left" ? "22%" : "78%",
+                  top: "42%",
+                  transform: `translate(-50%, -50%) perspective(600px) rotateY(${props.view === "left" ? 35 : -35}deg)`,
+                }}
+              >
+                <span
+                  className={`${fontClass} uppercase tracking-tight`}
+                  style={{
+                    fontSize: `${Math.max(10, textPx * 0.55)}px`,
+                    lineHeight: 1,
+                    color: props.textColor,
+                    textShadow: `0 0 1px ${contrastStroke(props.textColor, props.color.hex)}, 0 1px 2px rgba(0,0,0,0.15)`,
+                  }}
+                >
+                  {props.customText}
+                </span>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
+
 
         {/* Floating status badge */}
         <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur">

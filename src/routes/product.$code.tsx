@@ -65,6 +65,7 @@ function ProductPage() {
   const [customText, setCustomText] = useState(editing?.customText ?? "");
   const [textFont, setTextFont] = useState(editing?.textFont ?? "brutal");
   const [textColor, setTextColor] = useState(editing?.textColor ?? "#0a0a0a");
+  const [textSize, setTextSize] = useState(24);
   const [overlayPos, setOverlayPos] = useState({ x: 0, y: -10 });
   const [editMode, setEditMode] = useState(false);
 
@@ -129,7 +130,7 @@ function ProductPage() {
             color={color} view={view} setView={setView}
             logoPos={logoPos} logoImage={logoImage} logoSize={logoSize}
             customText={customText}
-            textColor={textColor} textFont={textFont}
+            textColor={textColor} textFont={textFont} textSize={textSize}
             overlayPos={overlayPos} setOverlayPos={setOverlayPos}
             editMode={editMode} setEditMode={setEditMode}
           />
@@ -146,6 +147,7 @@ function ProductPage() {
           customText={customText} setCustomText={setCustomText}
           textFont={textFont} setTextFont={setTextFont}
           textColor={textColor} setTextColor={setTextColor}
+          textSize={textSize} setTextSize={setTextSize}
           totalPrice={totalPrice}
         />
       </div>

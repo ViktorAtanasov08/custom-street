@@ -30,6 +30,7 @@ const STRINGS = {
     logo_label: "Logo",
     upload_logo: "Upload your logo", replace_logo: "Replace image", remove_logo: "Remove image",
     logo_size: "Logo size", image_surcharge: "Image logo scales with size",
+    text_size: "Text size", text_on_sleeves: "Also printed on sleeves",
     image_hint: "PNG, JPG or SVG · max 4MB · stays inside the printable zone", custom_image: "Custom image",
     // Auth
     sign_in: "Sign in", sign_up: "Sign up", sign_out: "Sign out",
@@ -86,6 +87,7 @@ const STRINGS = {
     logo_label: "Logo",
     upload_logo: "Sube tu logo", replace_logo: "Reemplazar imagen", remove_logo: "Quitar imagen",
     logo_size: "Tamaño del logo", image_surcharge: "El logo escala con el tamaño",
+    text_size: "Tamaño del texto", text_on_sleeves: "También impreso en las mangas",
     image_hint: "PNG, JPG o SVG · máx 4MB · permanece dentro de la zona imprimible", custom_image: "Imagen personalizada",
     // Auth
     sign_in: "Iniciar sesión", sign_up: "Registrarse", sign_out: "Cerrar sesión",
@@ -115,12 +117,69 @@ const STRINGS = {
   },
 } as const;
 
+// Catalog term translations (data comes from a Spanish source).
+const TERMS: Record<string, string> = {
+  // families
+  "Bañadores": "Swimwear",
+  "Bermudas": "Shorts",
+  "Bodies": "Bodysuits",
+  "Calcetas Y Calcetines": "Socks",
+  "Camisetas": "T-Shirts",
+  "Chalecos": "Vests",
+  "Chaquetas": "Jackets",
+  "Chubasqueros": "Raincoats",
+  "Conjuntos Deportivos": "Tracksuits",
+  "Cortavientos": "Windbreakers",
+  "Faldas": "Skirts",
+  "Leggings": "Leggings",
+  "Paddle": "Padel",
+  "Pantalones Cortos": "Shorts",
+  "Pantalones": "Pants",
+  "Parkas": "Parkas",
+  "Petos Deportivos": "Sport Bibs",
+  "Polos": "Polos",
+  "Ropa Abrigo": "Outerwear",
+  "Ropa Deportiva": "Sportswear",
+  "Softshells": "Softshells",
+  "Sudaderas": "Hoodies",
+  // gender
+  "Hombre": "Men",
+  "Mujer": "Women",
+  "Unisex": "Unisex",
+  // category
+  "Básico": "Basic",
+  "Otros": "Other",
+  // color words (most common)
+  "Blanco": "White", "Negro": "Black", "Rojo": "Red", "Azul": "Blue",
+  "Verde": "Green", "Amarillo": "Yellow", "Gris": "Grey", "Marino": "Navy",
+  "Celeste": "Sky Blue", "Rosa": "Pink", "Naranja": "Orange", "Turquesa": "Turquoise",
+  "Morado": "Purple", "Beige": "Beige", "Crudo": "Ivory",
+};
+
 type Lang = "en" | "es";
 type Key = keyof typeof STRINGS.en;
 
-const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: (k: Key) => string }>({
-  lang: "en", setLang: () => {}, t: (k) => STRINGS.en[k],
+const Ctx = createContext<{
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  t: (k: Key) => string;
+  tr: (term: string) => string;
+}>({
+  lang: "en", setLang: () => {}, t: (k) => STRINGS.en[k], tr: (s) => s,
 });
+
+function translateTerm(term: string, lang: Lang): string {
+  if (lang !== "en" || !term) return term;
+  // direct hit
+  if (TERMS[term]) return TERMS[term];
+  // multi-word: translate each token if known
+  const parts = term.split(/\s+/);
+  if (parts.length > 1) {
+    const mapped = parts.map((p) => TERMS[p] ?? p);
+    if (mapped.some((m, i) => m !== parts[i])) return mapped.join(" ");
+  }
+  return term;
+}
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
@@ -135,6 +194,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem("merchango.lang", l); } catch {}
   };
   const t = (k: Key) => STRINGS[lang][k];
-  return <Ctx.Provider value={{ lang, setLang: set, t }}>{children}</Ctx.Provider>;
+  const tr = (s: string) => translateTerm(s, lang);
+  return <Ctx.Provider value={{ lang, setLang: set, t, tr }}>{children}</Ctx.Provider>;
 }
 export const useI18n = () => useContext(Ctx);
