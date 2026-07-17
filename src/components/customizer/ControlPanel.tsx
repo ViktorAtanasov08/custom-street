@@ -54,7 +54,7 @@ export function ControlPanel(props: {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">{p.family} · {p.gender}</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">{tr(p.family)} · {tr(p.gender)}</p>
         <h1 className="mt-1 font-display text-3xl uppercase leading-none tracking-tight sm:text-4xl">
           {p.name} <span className="text-holo">v1.0</span>
         </h1>
