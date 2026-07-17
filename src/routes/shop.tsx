@@ -20,7 +20,7 @@ export const Route = createFileRoute("/shop")({
 const PAGE = 24;
 
 function Shop() {
-  const { t } = useI18n();
+  const { t, tr } = useI18n();
   const [q, setQ] = useState("");
   const [family, setFamily] = useState<string>("__all");
   const [gender, setGender] = useState<string>("__all");
