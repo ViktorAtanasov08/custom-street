@@ -111,6 +111,7 @@ const STRINGS = {
     order_number: "Pedido", continue_shopping: "Seguir comprando", back_home: "Volver al inicio",
     empty_checkout: "Tu carrito está vacío. Añade una pieza antes de pagar.",
     demo_note: "Pago de demostración — no se cobra ninguna tarjeta.",
+    pay_method: "Método de pago", pay_card: "Tarjeta", pay_apple: "Apple Pay", pay_google: "Google Pay", pay_paypal: "PayPal", pay_revolut: "Revolut Pay", pay_klarna: "Klarna", pay_redirect_note: "Te redirigiremos para completar el pago de forma segura.", pay_wallet_note: "Confirma con Face ID / Touch ID en tu dispositivo.",
   },
 } as const;
 
