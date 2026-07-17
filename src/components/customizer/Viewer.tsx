@@ -17,6 +17,7 @@ export function Viewer(props: {
   customText: string;
   textColor: string;
   textFont: string;
+  textSize: number;
   overlayPos: Overlay;
   setOverlayPos: (p: Overlay) => void;
   editMode: boolean;
