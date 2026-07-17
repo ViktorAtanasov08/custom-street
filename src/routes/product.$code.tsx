@@ -147,6 +147,7 @@ function ProductPage() {
           customText={customText} setCustomText={setCustomText}
           textFont={textFont} setTextFont={setTextFont}
           textColor={textColor} setTextColor={setTextColor}
+          textSize={textSize} setTextSize={setTextSize}
           totalPrice={totalPrice}
         />
       </div>
