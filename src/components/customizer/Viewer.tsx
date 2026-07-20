@@ -105,7 +105,7 @@ export function Viewer(props: {
           >
             {(() => {
               const isFront = props.view === "front";
-              const alt = isFront ? null : sideViewUrl(props.productCode, props.color.image, props.view);
+              const alt = isFront ? null : sideViewUrl(props.productCode, props.color.image, props.view as "back" | "left" | "right");
               const src = isFront ? props.color.image : (alt ?? props.color.image);
               const fallbackTransform =
                 !alt && props.view === "back" ? "scaleX(-1)" :
