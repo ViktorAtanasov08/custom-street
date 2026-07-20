@@ -9,6 +9,7 @@ export type View = "front" | "back" | "left" | "right";
 export type Overlay = { x: number; y: number };
 
 export function Viewer(props: {
+  productCode: string;
   color: ColorVariant;
   view: View;
   setView: (v: View) => void;
