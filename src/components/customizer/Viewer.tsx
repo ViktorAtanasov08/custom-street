@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ZoomIn, ZoomOut, RotateCw, RotateCcw, Sparkles, Move } from "lucide-react";
 import type { ColorVariant } from "@/data/products";
 import { useI18n } from "@/lib/i18n";
+import { sideViewUrl } from "@/lib/product-views";
 
 export type View = "front" | "back" | "left" | "right";
 export type Overlay = { x: number; y: number };
 
 export function Viewer(props: {
+  productCode: string;
   color: ColorVariant;
   view: View;
   setView: (v: View) => void;
@@ -101,18 +103,26 @@ export function Viewer(props: {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="relative flex h-full w-full items-center justify-center"
           >
-            {props.color.image ? (
-              <img
-                src={props.color.image}
-                alt=""
-                className={`max-h-full max-w-full object-contain mix-blend-multiply ${detail ? "scale-125" : ""} ${props.view !== "front" ? "opacity-90" : ""}`}
-                style={props.view === "back" ? { transform: "scaleX(-1)" } :
-                       props.view === "left" ? { transform: "perspective(800px) rotateY(35deg)" } :
-                       props.view === "right" ? { transform: "perspective(800px) rotateY(-35deg)" } : undefined}
-              />
-            ) : (
-              <div className="h-3/4 w-3/4 rounded-xl" style={{ backgroundColor: props.color.hex }} />
-            )}
+            {(() => {
+              const isFront = props.view === "front";
+              const alt = isFront ? null : sideViewUrl(props.productCode, props.color.image, props.view as "back" | "left" | "right");
+              const src = isFront ? props.color.image : (alt ?? props.color.image);
+              const fallbackTransform =
+                !alt && props.view === "back" ? "scaleX(-1)" :
+                !alt && props.view === "left" ? "perspective(800px) rotateY(35deg)" :
+                !alt && props.view === "right" ? "perspective(800px) rotateY(-35deg)" : undefined;
+              return src ? (
+                <img
+                  src={src}
+                  alt=""
+                  className={`max-h-full max-w-full object-contain mix-blend-multiply ${detail ? "scale-125" : ""} ${!isFront ? "opacity-95" : ""}`}
+                  style={fallbackTransform ? { transform: fallbackTransform } : undefined}
+                />
+              ) : (
+                <div className="h-3/4 w-3/4 rounded-xl" style={{ backgroundColor: props.color.hex }} />
+              );
+            })()}
+
 
             {/* Printable safe zone dashed rect on front while editing */}
             {props.view === "front" && props.editMode && (

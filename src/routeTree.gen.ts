@@ -19,6 +19,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductCodeRouteImport } from './routes/product.$code'
+import { Route as ApiPublicDriveFileIdRouteImport } from './routes/api/public/drive.$fileId'
 
 const ThanksRoute = ThanksRouteImport.update({
   id: '/thanks',
@@ -70,6 +71,11 @@ const ProductCodeRoute = ProductCodeRouteImport.update({
   path: '/product/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicDriveFileIdRoute = ApiPublicDriveFileIdRouteImport.update({
+  id: '/api/public/drive/$fileId',
+  path: '/api/public/drive/$fileId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
+  '/api/public/drive/$fileId': typeof ApiPublicDriveFileIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
+  '/api/public/drive/$fileId': typeof ApiPublicDriveFileIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/thanks': typeof ThanksRoute
   '/product/$code': typeof ProductCodeRoute
+  '/api/public/drive/$fileId': typeof ApiPublicDriveFileIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/thanks'
     | '/product/$code'
+    | '/api/public/drive/$fileId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/thanks'
     | '/product/$code'
+    | '/api/public/drive/$fileId'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/thanks'
     | '/product/$code'
+    | '/api/public/drive/$fileId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   ThanksRoute: typeof ThanksRoute
   ProductCodeRoute: typeof ProductCodeRoute
+  ApiPublicDriveFileIdRoute: typeof ApiPublicDriveFileIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/drive/$fileId': {
+      id: '/api/public/drive/$fileId'
+      path: '/api/public/drive/$fileId'
+      fullPath: '/api/public/drive/$fileId'
+      preLoaderRoute: typeof ApiPublicDriveFileIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,17 +266,8 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   ThanksRoute: ThanksRoute,
   ProductCodeRoute: ProductCodeRoute,
+  ApiPublicDriveFileIdRoute: ApiPublicDriveFileIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
