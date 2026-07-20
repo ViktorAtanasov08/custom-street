@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ZoomIn, ZoomOut, RotateCw, RotateCcw, Sparkles, Move } from "lucide-react";
 import type { ColorVariant } from "@/data/products";
 import { useI18n } from "@/lib/i18n";
+import { sideViewUrl } from "@/lib/product-views";
 
 export type View = "front" | "back" | "left" | "right";
 export type Overlay = { x: number; y: number };
