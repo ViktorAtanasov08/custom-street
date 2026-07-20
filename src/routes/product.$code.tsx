@@ -127,7 +127,7 @@ function ProductPage() {
       <div className="grid gap-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div className="h-[70vh] min-h-[420px] md:sticky md:top-20 md:h-[calc(100vh-8rem)]">
           <Viewer
-            productCode={p.code} color={color} view={view} setView={setView}
+            color={color} view={view} setView={setView}
             logoPos={logoPos} logoImage={logoImage} logoSize={logoSize}
             customText={customText}
             textColor={textColor} textFont={textFont} textSize={textSize}
