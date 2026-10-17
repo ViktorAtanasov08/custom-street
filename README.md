@@ -35,7 +35,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
-The browser uses the `VITE_` variables; the server client uses the unprefixed variables. Use a publishable key, never a service-role or secret key in browser configuration. Configure allowed authentication redirect URLs in your Supabase project.
+The shared authentication client uses the `VITE_` variables in the browser and the unprefixed variables as a server-rendering fallback. Use a publishable key, never a service-role or secret key in browser configuration. Configure allowed authentication redirect URLs in your Supabase project.
 
 ```sh
 bun run dev
